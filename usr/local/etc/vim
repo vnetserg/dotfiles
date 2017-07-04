@@ -1,0 +1,5 @@
+" Set dark background
+set background=dark
+
+" Set escape timeout to zero
+set timeoutlen=1000 ttimeoutlen=0

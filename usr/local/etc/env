@@ -1,0 +1,2 @@
+# Set environment variables
+export EDITOR=vim

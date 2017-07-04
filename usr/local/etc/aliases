@@ -1,0 +1,7 @@
+# This file is sourced by all users' shells.
+
+alias sudo="sudo "
+alias vi="vim"
+alias ls="ls -h --color=auto"
+alias update-grub="grub-mkconfig -o /boot/grub/grub.cfg.tmp && mv /boot/grub/grub.cfg.tmp /boot/grub/grub.cfg"
+alias remove-orphans="pacman -Rns $(pacman -Qtdq)"

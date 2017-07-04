@@ -1,0 +1,19 @@
+# Set zero delay for Esc
+set -s escape-time 0
+
+# Switch pane keys
+bind -n M-\; select-pane -R
+bind -n M-j select-pane -L
+bind -n M-k select-pane -D
+bind -n M-l select-pane -U
+
+# Split pane keys
+bind -n M-h split-window -v
+bind -n M-v split-window -h
+
+# Resize keys
+bind -n M-J resize-pane -L
+bind -n M-K resize-pane -D
+bind -n M-L resize-pane -U
+bind -n M-: resize-pane -R
+
