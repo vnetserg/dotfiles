@@ -10,3 +10,7 @@ shift alt keycode 36 = Meta_J
 shift alt keycode 37 = Meta_K
 shift alt keycode 38 = Meta_L
 shift alt keycode 39 = Meta_colon
+
+# Define Alt-Arrow bindings
+alt keycode 103 = Meta_Up
+alt keycode 108 = Meta_Down
