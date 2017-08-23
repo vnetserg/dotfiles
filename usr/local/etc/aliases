@@ -3,5 +3,5 @@
 alias sudo="sudo "
 alias vi="vim"
 alias ls="ls -h --color=auto"
-alias update-grub="grub-mkconfig -o /boot/grub/grub.cfg.tmp && mv /boot/grub/grub.cfg.tmp /boot/grub/grub.cfg"
+alias update-grub='bash -c "grub-mkconfig -o /boot/grub/grub.cfg.tmp && mv /boot/grub/grub.cfg.tmp /boot/grub/grub.cfg"'
 alias remove-orphans="pacman -Rns $(pacman -Qtdq)"
