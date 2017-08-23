@@ -8,8 +8,8 @@ bind -n M-k select-pane -D
 bind -n M-l select-pane -U
 
 # Split pane keys
-bind -n M-h split-window -v
-bind -n M-v split-window -h
+bind -n M-h split-window -h
+bind -n M-v split-window -v
 
 # Resize keys
 bind -n M-J resize-pane -L
