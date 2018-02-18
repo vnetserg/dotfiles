@@ -2,20 +2,20 @@
 set -s escape-time 0
 
 # Switch pane keys
-bind -n M-\; select-pane -R
-bind -n M-j select-pane -L
-bind -n M-k select-pane -D
-bind -n M-l select-pane -U
+bind -n M-l select-pane -R
+bind -n M-h select-pane -L
+bind -n M-j select-pane -D
+bind -n M-k select-pane -U
 
 # Split pane keys
-bind -n M-h split-window -h
+bind -n M-g split-window -h
 bind -n M-v split-window -v
 
 # Resize keys
-bind -n M-J resize-pane -L
-bind -n M-K resize-pane -D
-bind -n M-L resize-pane -U
-bind -n M-: resize-pane -R
+bind -n M-Left resize-pane -L
+bind -n M-Down resize-pane -D
+bind -n M-Up resize-pane -U
+bind -n M-Right resize-pane -R
 
 # Page up key
 bind -n Pageup copy-mode -u

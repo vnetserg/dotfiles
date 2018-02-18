@@ -12,3 +12,17 @@ set tabstop=4
 set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
+
+" Show line numbers
+set number
+
+" Bind Ctrl+O to open file in a new tab
+map <C-O> :tabe 
+
+" Bind Ctrl+J and Ctrl+K to switch between tabs
+map <C-K> :tabn<CR>
+map <C-J> :tabprev<CR>
+
+" Exit and save hotkeys
+map <C-S> :w<CR>
+map <C-X> :q<CR>

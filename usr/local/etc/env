@@ -1,2 +1,5 @@
 # Set environment variables
 export EDITOR=vim
+
+# Virtualenv wrapper
+source /usr/bin/virtualenvwrapper_lazy.sh
