@@ -1,29 +1,10 @@
-# This file is sourced by all the user's zsh shells.
+# This file is sourced by all the user's zsh shells
 
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
-setopt autocd
-unsetopt beep
-bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '~/.zshrc'
-
-autoload -Uz colors compinit
-colors
-compinit
-# End of lines added by compinstall
-
-# Autocompletion by arrows
-zstyle ':completion:*' menu select
-
-# Error correction by tab
-zstyle ':completion:*' completer _expand _complete _correct
-
-# Autocompletion of command line switches for aliases
-setopt COMPLETE_ALIASES
+# Oh-my-zsh configuration
+export ZSH="/home/se4min/.oh-my-zsh"
+ZSH_THEME="bira-custom"
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
 
 # Enable history search
 bindkey "^[[A" history-beginning-search-backward
@@ -42,24 +23,6 @@ source /usr/local/etc/aliases
 
 # Source envorinment variables
 source /usr/local/etc/env
-
-# Set command prompt
-export PROMPT="%{$fg_bold[cyan]%}%~ %{$fg_bold[yellow]%}%(!.#.%%) %{$reset_color%}"
-
-# Show right prompt if in vim mode
-function zle-line-init zle-keymap-select {
-    if [[ $KEYMAP == "vicmd" ]]; then
-        export RPROMPT="[%{$fg_bold[yellow]%}vi%{$reset_color%}]"
-    else
-        export RPROMPT=""
-    fi
-    zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
-
-# Decrease ESC timeout
-export KEYTIMEOUT=1
 
 # Make backspace work properly in vi mode
 bindkey "^?" backward-delete-char
