@@ -3,3 +3,10 @@ export EDITOR=vim
 
 # Virtualenv wrapper
 source /usr/bin/virtualenvwrapper_lazy.sh
+
+# PATH
+export PATH=${PATH}:${HOME}/.cargo/bin:${HOME}/code/go/bin:${HOME}/.local/bin
+
+# GO variables
+export GOPATH=${HOME}/code/go
+export GOBIN=${GOPATH}/bin

@@ -7,3 +7,4 @@ alias update-grub='bash -c "grub-mkconfig -o /boot/grub/grub.cfg.tmp && mv /boot
 alias remove-orphans="pacman -Rns $(pacman -Qtdq)"
 alias cmake="cmake -GNinja"
 alias cmake-asan="cmake -DCMAKE_BUILD_TYPE=ASAN"
+alias cmake-tsan="cmake -DCMAKE_BUILD_TYPE=TSAN"
