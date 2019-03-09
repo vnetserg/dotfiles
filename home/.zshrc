@@ -19,10 +19,10 @@ bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
 
 # Source aliases
-source /usr/local/etc/aliases
+source ${HOME}/.aliases
 
 # Source envorinment variables
-source /usr/local/etc/env
+source ${HOME}/.env
 
 # Z utility
 source ${HOME}/.zsh/z/z.sh
