@@ -86,9 +86,9 @@ map ,D :tab split \| YcmCompleter GoToDefinitionElseDeclaration<CR>
 map ,r :YcmCompleter GoToReferences<CR>
 map ,t :YcmCompleter GetType<CR>
 
-" Pmenu look                                                                                        
- hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE                      
- hi PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
+" Pmenu look
+hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
+hi PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
 
 " Line length indicator
 set colorcolumn=100
