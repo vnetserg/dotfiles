@@ -34,8 +34,11 @@ set expandtab
 " Show line numbers
 set number
 
-" Bind ,o to open file in a new tab
-map ,o :tabe 
+" Bind Ctrl+O to open file in a new tab
+map <C-O> :tabe 
+
+" Bind Ctrl+P to jump back (original function of Ctrl-O)
+nnoremap <C-P> <C-O>
 
 " Bind Ctrl+G to split
 map <C-G> :vs 
