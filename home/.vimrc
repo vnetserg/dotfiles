@@ -11,6 +11,8 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
 Bundle 'Valloric/YouCompleteMe'
+Plugin 'fatih/vim-go'
+" Plugin 'rust-lang/rust.vim'
 
 " Vundle teardown
 call vundle#end()
@@ -51,8 +53,8 @@ map <C-K> :tabn<CR>
 map <C-J> :tabprev<CR>
 
 " Bind Ctrl+H and Ctrl+L to switch between panes
-nnoremap <C-H> <C-W><C-H>
-nnoremap <C-L> <C-W><C-L>
+"nnoremap <C-H> <C-W><C-H>
+"nnoremap <C-L> <C-W><C-L>
 
 " Exit hotkey
 map <C-X> :q<CR>
