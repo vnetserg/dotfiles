@@ -108,7 +108,7 @@ if 'VIRTUAL_ENV' in os.environ:
 EOF
 
 " Flake8
-let g:flake8_cmd="flake8 --ignore=E"
+let g:flake8_cmd="flake8 --ignore=E1,E3,E5"
 autocmd BufWritePost *.py call Flake8()
 
 " Duplicate tab pane
