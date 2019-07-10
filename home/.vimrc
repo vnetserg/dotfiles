@@ -18,6 +18,9 @@ Plugin 'fatih/vim-go'
 call vundle#end()
 filetype plugin indent on
 
+" Encoding
+set encoding=utf-8
+
 " Set dark background
 set background=dark
 
