@@ -3,7 +3,13 @@
 # Oh-my-zsh configuration
 export ZSH="${HOME}/.oh-my-zsh"
 ZSH_THEME="bira-custom"
-plugins=(git)
+
+plugins=(
+    git
+    vi-mode
+    history-substring-search
+)
+
 source $ZSH/oh-my-zsh.sh
 
 # Enable history search
@@ -29,7 +35,7 @@ source ${HOME}/.zsh/z/z.sh
 
 # Make backspace work properly in vi mode
 bindkey "^?" backward-delete-char
-#bindkey "^W" backward-kill-word
+bindkey "^W" backward-kill-word
 bindkey "^H" backward-delete-char
 bindkey "^U" backward-kill-line
 
