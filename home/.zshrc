@@ -10,8 +10,6 @@ export VIMINIT="source ${HOME}/.vimrc"
 
 # FZF
 export FZF_DEFAULT_COMMAND='ag -g "" --path-to-ignore ~/.agignore'
-source ~/.env
-source ~/.aliases
 
 #
 # ALIASES:
