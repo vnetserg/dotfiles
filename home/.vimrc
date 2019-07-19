@@ -14,12 +14,18 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'bufkill.vim'
 Plugin 'junegunn/fzf.vim'
 Plugin 'vim-scripts/indentpython.vim'
-Bundle 'Valloric/YouCompleteMe'
 Plugin 'fatih/vim-go'
 Plugin 'rust-lang/rust.vim'
 Plugin 'w0rp/ale'
 Plugin 'itchyny/lightline.vim'
 Bundle 'christoomey/vim-tmux-navigator'
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+Plugin 'prabirshrestha/asyncomplete-file.vim'
+Plugin 'prabirshrestha/asyncomplete-buffer.vim'
+Plugin 'drmingdrmer/vim-toggle-quickfix'
 
 " Vundle teardown
 call vundle#end()
@@ -41,19 +47,6 @@ nnoremap ,b :Buffers<CR>
 nnoremap ; :Files<CR>
 nnoremap ,t :Tags<CR>
 
-" YCM plugin
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_show_diagnostics_ui = 1
-let g:ycm_enable_diagnostic_signs = 0 
-let g:ycm_enable_diagnostic_highlighting = 0
-nnoremap ,d :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap ,D :vsplit \| YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap ,r :YcmCompleter GoToReferences<CR>
-nnoremap ,T :YcmCompleter GetType<CR>
-hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
-hi PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
-
 " Go plugin
 let g:go_version_warning = 0
 
@@ -61,9 +54,11 @@ let g:go_version_warning = 0
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_insert_leave = 0
+let g:ale_python_flake8_options = '--ignore=E1,E3,E5,E7,E203,E226'
 let g:ale_linters = {
 \   'cpp': [],
 \   'proto': [],
+\   'rust': ['rls'],
 \}
 
 " Lightline plugin
@@ -77,6 +72,51 @@ nnoremap <silent> <Esc>h :TmuxNavigateLeft<cr>
 nnoremap <silent> <Esc>j :TmuxNavigateDown<cr>
 nnoremap <silent> <Esc>k :TmuxNavigateUp<cr>
 nnoremap <silent> <Esc>l :TmuxNavigateRight<cr>
+
+" Vim-lsp plugin
+au User lsp_setup call lsp#register_server({
+    \ 'name': 'pyls',
+    \ 'cmd': {server_info->['pyls']},
+    \ 'whitelist': ['python'],
+    \ })
+au User lsp_setup call lsp#register_server({
+    \ 'name': 'rls',
+    \ 'cmd': {server_info->['rls']},
+    \ 'whitelist': ['rust'],
+    \ })
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'whitelist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': ['go'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ 'config': {
+    \    'max_buffer_size': 5000000,
+    \  },
+    \ }))
+nnoremap ,d :LspDefinition<CR>
+nnoremap ,D :vsplit \| LspDefinition<CR>
+nnoremap ,r :LspReferences<CR>
+nnoremap ,h :LspHover<CR>
+nnoremap ,s :LspWorkspaceSymbol 
+let g:lsp_diagnostics_enabled = 0
+let g:lsp_highlight_references_enabled = 0
+
+" Asyncomplete plugin
+hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
+hi PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+set shortmess+=c
+
+" Quickfix toggle plugin
+nmap ,q <Plug>window:quickfix:loop
 
 " Other hotkeys
 nnoremap <C-P> <C-O>
@@ -112,22 +152,6 @@ filetype plugin indent on
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
-
-" Quickfix toggling
-if exists("g:__QUICKFIX_TOGGLE_jfklds__")
-    finish
-endif
-let g:__QUICKFIX_TOGGLE_jfklds__ = 1
-fun! s:QuickfixToggle() "{{{
-    let nr = winnr("$")
-    cwindow
-    let nr2 = winnr("$")
-    if nr == nr2
-        cclose
-    endif
-endfunction "}}}
-nnoremap <silent> <Plug>window:quickfix:toggle :call <SID>QuickfixToggle()<CR>
-nnoremap ,q <Plug>window:quickfix:toggle
 
 " Auto-activate Python virtualenv
 py3 << EOF
