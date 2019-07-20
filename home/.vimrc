@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " Vundle init
 set nocompatible
 filetype off
