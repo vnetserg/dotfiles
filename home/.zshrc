@@ -11,6 +11,11 @@ export VIMINIT="source ${HOME}/.vimrc"
 # FZF
 export FZF_DEFAULT_COMMAND='ag -g "" --path-to-ignore ~/.agignore'
 
+# Virtualenv wrapper
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export WORKON_HOME=$HOME/.virtualenvs
+source $HOME/.local/bin/virtualenvwrapper.sh
+
 #
 # ALIASES:
 #
