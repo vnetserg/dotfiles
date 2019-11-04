@@ -12,21 +12,17 @@ set rtp+=~/.fzf " FZF stock plugin
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'mileszs/ack.vim'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'bufkill.vim'
 Plugin 'junegunn/fzf.vim'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'fatih/vim-go'
-Plugin 'rust-lang/rust.vim'
-Plugin 'w0rp/ale'
+Plugin 'dense-analysis/ale'
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
+Plugin 'deoplete-plugins/deoplete-jedi'
+Plugin 'deoplete-plugins/deoplete-clang'
+Plugin 'Shougo/neoinclude.vim'
 Plugin 'itchyny/lightline.vim'
 Bundle 'christoomey/vim-tmux-navigator'
-Plugin 'prabirshrestha/asyncomplete.vim'
-Plugin 'prabirshrestha/async.vim'
-Plugin 'prabirshrestha/vim-lsp'
-Plugin 'prabirshrestha/asyncomplete-lsp.vim'
-Plugin 'prabirshrestha/asyncomplete-file.vim'
-Plugin 'prabirshrestha/asyncomplete-buffer.vim'
 Plugin 'drmingdrmer/vim-toggle-quickfix'
 
 " Vundle teardown
@@ -37,36 +33,72 @@ let g:ackprg = 'ag --vimgrep --path-to-ignore ~/.agignore'
 nnoremap ,a :Ack! "\b<cword>\b"<CR>
 nnoremap <C-A> :Ack! 
 
-" SimplyFold plugin
-set foldlevel=99
-nnoremap <space> za
-
-" Bufkill plugin - close buffer hotkey
-nnoremap <C-W> :BD<CR>
-
 " FZF plugin
 nnoremap ,b :Buffers<CR>
 nnoremap ; :Files<CR>
-nnoremap ,t :Tags<CR>
-
-" Go plugin
-let g:go_version_warning = 0
 
 " ALE plugin
-let g:ale_lint_on_text_changed = 0
+let g:ale_set_highlights = 0
+let g:ale_lint_on_text_changed = 1
 let g:ale_lint_on_save = 1
-let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_insert_leave = 1
+let g:ale_completion_enabled = 0
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_keep_list_window_open = 1
 let g:ale_python_flake8_options = '--ignore=E1,E3,E5,E7,E203,E226'
+let g:ale_python_pyls_executable = '/home/se4min/bin/pyls'
+let g:ale_python_pyls_config = {
+\   'pyls': {
+\       'plugins': {
+\           'pycodestyle': {'enabled': v:true, 'ignore': ['E1', 'E3', 'E5', 'E7', 'E203', 'E226']},
+\           'mccabe': {'enabled': v:false},
+\           'pylint': {'enabled': v:false},
+\        }
+\    }
+\}
 let g:ale_linters = {
-\   'cpp': [],
+\   'cpp': ['ccls'],
 \   'proto': [],
 \   'rust': ['rls'],
+\   'python': ['pyls'],
 \}
+
+nnoremap ,d :ALEGoToDefinition<CR>
+nnoremap ,D :vsplit \| ALEGoToDefinition<CR>
+nnoremap ,t :ALEGoToTypeDefinition<CR>
+nnoremap ,T :vsplit \| ALEGoToTypeDefinition<CR>
+nnoremap ,r :ALEFindReferences<CR>
+nnoremap ,h :ALEHover<CR>
+
+" Disable ALE linting in cpp files
+autocmd FileType cpp call s:cpp_disable_linting()
+autocmd FileType c call s:cpp_disable_linting()
+function! s:cpp_disable_linting()
+    setlocal scl=no
+endfunction
+
+" Deoplete autocompletion
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang-8.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-8/lib/clang'
+let g:deoplete#enable_at_startup = 1
+set shortmess+=c " Disable 'pattern not found'
+set completeopt-=preview " Disable preview window
+
+" Autocompletion bar settings
+hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
+hi PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
 " Lightline plugin
 let g:lightline = {
-      \ 'colorscheme': 'seoul256',
-      \ }
+    \     'colorscheme': 'seoul256',
+    \     'active': {
+    \         'left': [ [ 'mode', 'paste' ], [ 'readonly', 'relativepath', 'modified' ] ],
+    \     }
+    \ }
 
 " Vim-Tmux plugin
 let g:tmux_navigator_no_mappings = 1
@@ -74,48 +106,6 @@ nnoremap <silent> <Esc>h :TmuxNavigateLeft<cr>
 nnoremap <silent> <Esc>j :TmuxNavigateDown<cr>
 nnoremap <silent> <Esc>k :TmuxNavigateUp<cr>
 nnoremap <silent> <Esc>l :TmuxNavigateRight<cr>
-
-" Vim-lsp plugin
-au User lsp_setup call lsp#register_server({
-    \ 'name': 'pyls',
-    \ 'cmd': {server_info->['pyls']},
-    \ 'whitelist': ['python'],
-    \ })
-au User lsp_setup call lsp#register_server({
-    \ 'name': 'rls',
-    \ 'cmd': {server_info->['rls']},
-    \ 'whitelist': ['rust'],
-    \ })
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'whitelist': ['*'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
-    \ }))
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
-    \ 'blacklist': ['go'],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ 'config': {
-    \    'max_buffer_size': 5000000,
-    \  },
-    \ }))
-nnoremap ,d :LspDefinition<CR>
-nnoremap ,D :vsplit \| LspDefinition<CR>
-nnoremap ,r :LspReferences<CR>
-nnoremap ,h :LspHover<CR>
-nnoremap ,s :LspWorkspaceSymbol 
-let g:lsp_diagnostics_enabled = 0
-let g:lsp_highlight_references_enabled = 0
-
-" Asyncomplete plugin
-hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
-hi PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-set shortmess+=c
 
 " Quickfix toggle plugin
 nmap ,q <Plug>window:quickfix:loop
