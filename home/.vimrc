@@ -43,15 +43,13 @@ let g:ale_lint_on_text_changed = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_insert_leave = 1
 let g:ale_completion_enabled = 0
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
 let g:ale_keep_list_window_open = 1
 let g:ale_python_flake8_options = '--ignore=E1,E3,E5,E7,E203,E226'
 let g:ale_python_pyls_executable = '/home/se4min/bin/pyls'
 let g:ale_python_pyls_config = {
 \   'pyls': {
 \       'plugins': {
-\           'pycodestyle': {'enabled': v:true, 'ignore': ['E1', 'E3', 'E5', 'E7', 'E203', 'E226']},
+\           'pycodestyle': {'enabled': v:true, 'ignore': ['E1', 'E3', 'E5', 'E7', 'E203', 'E226', 'W503']},
 \           'mccabe': {'enabled': v:false},
 \           'pylint': {'enabled': v:false},
 \        }
@@ -97,6 +95,9 @@ let g:lightline = {
     \     'colorscheme': 'seoul256',
     \     'active': {
     \         'left': [ [ 'mode', 'paste' ], [ 'readonly', 'relativepath', 'modified' ] ],
+    \     },
+    \     'inactive': {
+    \         'left': [ [ 'relativepath' ] ],
     \     }
     \ }
 
