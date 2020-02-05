@@ -73,7 +73,7 @@ source /home/se4min/.zsh/z/z.sh
 bindkey '^G' fzf-cd-widget
 
 # Time format
-TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
+export TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
 'avg shared (code):         %X KB'$'\n'\
 'avg unshared (data/stack): %D KB'$'\n'\
 'total (sum):               %K KB'$'\n'\

@@ -20,6 +20,7 @@ Plugin 'roxma/nvim-yarp'
 Plugin 'roxma/vim-hug-neovim-rpc'
 Plugin 'deoplete-plugins/deoplete-jedi'
 Plugin 'deoplete-plugins/deoplete-clang'
+Plugin 'sebastianmarkow/deoplete-rust'
 Plugin 'Shougo/neoinclude.vim'
 Plugin 'itchyny/lightline.vim'
 Bundle 'christoomey/vim-tmux-navigator'
@@ -46,6 +47,7 @@ let g:ale_completion_enabled = 0
 let g:ale_keep_list_window_open = 1
 let g:ale_python_flake8_options = '--ignore=E1,E3,E5,E7,E203,E226'
 let g:ale_python_pyls_executable = '/home/se4min/bin/pyls'
+let g:ale_cpp_clangd_executable = 'clangd-8'
 let g:ale_python_pyls_config = {
 \   'pyls': {
 \       'plugins': {
@@ -57,6 +59,8 @@ let g:ale_python_pyls_config = {
 \}
 let g:ale_linters = {
 \   'cpp': ['ccls'],
+\   'c': [],
+\   'asm': [],
 \   'proto': [],
 \   'rust': ['rls'],
 \   'python': ['pyls'],
@@ -69,19 +73,13 @@ nnoremap ,T :vsplit \| ALEGoToTypeDefinition<CR>
 nnoremap ,r :ALEFindReferences<CR>
 nnoremap ,h :ALEHover<CR>
 
-" Disable ALE linting in cpp files
-autocmd FileType cpp call s:cpp_disable_linting()
-autocmd FileType c call s:cpp_disable_linting()
-function! s:cpp_disable_linting()
-    setlocal scl=no
-endfunction
-
 " Deoplete autocompletion
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang-8.so.1'
 let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-8/lib/clang'
 let g:deoplete#enable_at_startup = 1
 set shortmess+=c " Disable 'pattern not found'
 set completeopt-=preview " Disable preview window
+set completeopt+=noinsert,noselect " Against too eager autocompletion
 
 " Autocompletion bar settings
 hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
@@ -103,10 +101,10 @@ let g:lightline = {
 
 " Vim-Tmux plugin
 let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <Esc>h :TmuxNavigateLeft<cr>
-nnoremap <silent> <Esc>j :TmuxNavigateDown<cr>
-nnoremap <silent> <Esc>k :TmuxNavigateUp<cr>
-nnoremap <silent> <Esc>l :TmuxNavigateRight<cr>
+nnoremap <silent> <A-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
 
 " Quickfix toggle plugin
 nmap ,q <Plug>window:quickfix:loop
@@ -115,8 +113,8 @@ nmap ,q <Plug>window:quickfix:loop
 nnoremap <C-P> <C-O>
 nnoremap <C-H> :lprev<CR>
 nnoremap <C-L> :lnext<CR>
-nnoremap <Esc>g :vsplit<CR><C-w>l<CR>
-nnoremap <Esc>v :split<CR><C-w>j<CR>
+nnoremap <A-g> :vsplit<CR><C-w>l<CR>
+nnoremap <A-v> :split<CR><C-w>j<CR>
 nnoremap <C-O> :edit 
 nnoremap <Backspace> <C-^>
 nnoremap <C-X> :q<CR>
@@ -162,3 +160,4 @@ cmap w!! w !sudo tee > /dev/null %
 " Etc
 set encoding=utf-8
 set noswapfile
+set nohlsearch
