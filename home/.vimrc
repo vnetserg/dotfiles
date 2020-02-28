@@ -10,7 +10,6 @@ set rtp+=~/.fzf " FZF stock plugin
 
 " Vundle plugins
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdtree'
 Plugin 'mileszs/ack.vim'
 Plugin 'junegunn/fzf.vim'
 Plugin 'vim-scripts/indentpython.vim'
@@ -25,6 +24,7 @@ Plugin 'Shougo/neoinclude.vim'
 Plugin 'itchyny/lightline.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 Plugin 'drmingdrmer/vim-toggle-quickfix'
+Plugin 'preservim/nerdtree'
 
 " Vundle teardown
 call vundle#end()
