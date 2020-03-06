@@ -39,7 +39,7 @@ nnoremap ,b :Buffers<CR>
 nnoremap ; :Files<CR>
 
 " ALE plugin
-let g:ale_set_highlights = 0
+let g:ale_set_highlights = 1
 let g:ale_lint_on_text_changed = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_insert_leave = 1
@@ -130,7 +130,12 @@ set fillchars+=vert:│
 set colorcolumn=100
 set laststatus=2
 highlight ColorColumn ctermbg=0
+highlight SignColumn ctermbg=black
 highlight VertSplit cterm=none
+highlight ALEError ctermbg=none cterm=underline
+highlight ALEWarning ctermbg=none cterm=underline
+highlight ALEErrorSign ctermbg=none ctermfg=red
+highlight ALEWarningSign ctermbg=none ctermfg=yellow
 autocmd VimResized * wincmd =
 
 " Controls
