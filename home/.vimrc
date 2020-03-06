@@ -6,7 +6,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-set rtp+=~/.fzf " FZF stock plugin
+set rtp+=~/contrib/fzf " FZF stock plugin
 
 " Vundle plugins
 Plugin 'VundleVim/Vundle.vim'
@@ -46,8 +46,7 @@ let g:ale_lint_on_insert_leave = 1
 let g:ale_completion_enabled = 0
 let g:ale_keep_list_window_open = 1
 let g:ale_python_flake8_options = '--ignore=E1,E3,E5,E7,E203,E226'
-let g:ale_python_pyls_executable = '/home/se4min/bin/pyls'
-let g:ale_cpp_clangd_executable = 'clangd-8'
+let g:ale_cpp_clangd_executable = 'clangd-9'
 let g:ale_python_pyls_config = {
 \   'pyls': {
 \       'plugins': {
@@ -58,12 +57,12 @@ let g:ale_python_pyls_config = {
 \    }
 \}
 let g:ale_linters = {
-\   'cpp': ['ccls'],
+\   'cpp': ['clangd'],
 \   'c': [],
 \   'asm': [],
 \   'proto': [],
 \   'rust': ['rls'],
-\   'python': ['pyls'],
+\   'python': ['pyls', 'flake8'],
 \}
 
 nnoremap ,d :ALEGoToDefinition<CR>
@@ -101,6 +100,7 @@ let g:lightline = {
 
 " Vim-Tmux plugin
 let g:tmux_navigator_no_mappings = 1
+let g:tmux_navigator_disable_when_zoomed = 1
 nnoremap <silent> <A-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
