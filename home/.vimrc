@@ -138,6 +138,16 @@ highlight ALEErrorSign ctermbg=none ctermfg=red
 highlight ALEWarningSign ctermbg=none ctermfg=yellow
 autocmd VimResized * wincmd =
 
+" Cursor line highlight
+hi CursorLine   cterm=NONE ctermbg=black
+hi CursorColumn cterm=NONE ctermbg=black
+" hlight current line current window only
+augroup CursorLine
+    au!
+    au VimEnter,WinEnter,BufWinEnter,FocusGained,CmdwinEnter * setlocal cursorline
+    au WinLeave,FocusLost,CmdwinLeave * setlocal nocursorline
+augroup END
+
 " Controls
 set timeoutlen=1000 ttimeoutlen=0
 set tabstop=4
