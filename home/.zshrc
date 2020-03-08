@@ -8,6 +8,10 @@ export TERM=xterm-256color
 export EDITOR=vim
 export VIMINIT="source ${HOME}/.vimrc"
 
+# Go
+export GOPATH=${HOME}/code/go
+export PATH=/usr/local/go/bin:$PATH
+
 # FZF
 export FZF_DEFAULT_COMMAND='ag -g "" --path-to-ignore ~/.agignore'
 
