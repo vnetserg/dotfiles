@@ -13,14 +13,10 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'junegunn/fzf.vim'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'dense-analysis/ale'
-Plugin 'Shougo/deoplete.nvim'
+Plugin 'autozimu/LanguageClient-neovim'
 Plugin 'roxma/nvim-yarp'
 Plugin 'roxma/vim-hug-neovim-rpc'
-Plugin 'deoplete-plugins/deoplete-jedi'
-Plugin 'deoplete-plugins/deoplete-clang'
-Plugin 'sebastianmarkow/deoplete-rust'
-Plugin 'Shougo/neoinclude.vim'
+Plugin 'Shougo/deoplete.nvim'
 Plugin 'itchyny/lightline.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 Plugin 'drmingdrmer/vim-toggle-quickfix'
@@ -38,43 +34,35 @@ nnoremap <C-A> :Ack!
 nnoremap ,b :Buffers<CR>
 nnoremap ; :Files<CR>
 
-" ALE plugin
-let g:ale_set_highlights = 1
-let g:ale_lint_on_text_changed = 1
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_insert_leave = 1
-let g:ale_completion_enabled = 0
-let g:ale_keep_list_window_open = 1
-let g:ale_python_flake8_options = '--ignore=E1,E3,E5,E7,E203,E226'
-let g:ale_cpp_clangd_executable = 'clangd-9'
-let g:ale_python_pyls_config = {
-\   'pyls': {
-\       'plugins': {
-\           'pycodestyle': {'enabled': v:true, 'ignore': ['E1', 'E3', 'E5', 'E7', 'E203', 'E226', 'W503']},
-\           'mccabe': {'enabled': v:false},
-\           'pylint': {'enabled': v:false},
-\        }
-\    }
-\}
-let g:ale_linters = {
-\   'cpp': ['clangd'],
-\   'c': [],
-\   'asm': [],
-\   'proto': [],
-\   'rust': ['rls'],
-\   'python': ['pyls', 'flake8'],
+" LanguageClient plugin
+set hidden " Required for operations modifying multiple buffers like rename.
+let g:LanguageClient_settingsPath = '~/.vim/settings.json'
+let g:LanguageClient_useVirtualText = 'No'
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rls'],
+    \ 'python': ['~/.local/bin/pyls'],
+    \ 'cpp': ['/usr/bin/clangd-9', '-clang-tidy'],
+    \ }
+let g:LanguageClient_diagnosticsDisplay = {
+\   1: { 'signText': '>>' },
+\   2: { 'signText': '--' },
 \}
 
-nnoremap ,d :ALEGoToDefinition<CR>
-nnoremap ,D :vsplit \| ALEGoToDefinition<CR>
-nnoremap ,t :ALEGoToTypeDefinition<CR>
-nnoremap ,T :vsplit \| ALEGoToTypeDefinition<CR>
-nnoremap ,r :ALEFindReferences<CR>
-nnoremap ,h :ALEHover<CR>
+nnoremap <silent> ,h :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> ,d :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> ,D :vsplit \| :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> ,t :call LanguageClient#textDocument_typeDefinition()<CR>
+nnoremap <silent> ,T :vsplit \| :call LanguageClient#textDocument_typeDefinition()<CR>
+nnoremap <silent> ,R :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> ,r :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> ,f :call LanguageClient#textDocument_codeAction()<CR>:sleep 10m<CR><CR>
+nnoremap <silent> ,F :call LanguageClient#textDocument_codeAction()<CR>
+nnoremap <silent> ,/ :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <silent> ,s :call LanguageClient#workspace_symbol()<CR>
+nnoremap <silent> ,c :sign unplace *<CR>
+
 
 " Deoplete autocompletion
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang-8.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-8/lib/clang'
 let g:deoplete#enable_at_startup = 1
 set shortmess+=c " Disable 'pattern not found'
 set completeopt-=preview " Disable preview window
@@ -130,12 +118,12 @@ set fillchars+=vert:│
 set colorcolumn=100
 set laststatus=2
 highlight ColorColumn ctermbg=0
-highlight SignColumn ctermbg=black
+highlight SignColumn ctermbg=none
 highlight VertSplit cterm=none
 highlight ALEError ctermbg=none cterm=underline
 highlight ALEWarning ctermbg=none cterm=underline
-highlight ALEErrorSign ctermbg=none ctermfg=red
-highlight ALEWarningSign ctermbg=none ctermfg=yellow
+highlight ALEErrorSign ctermbg=none ctermfg=red cterm=bold
+highlight ALEWarningSign ctermbg=none ctermfg=yellow cterm=bold
 autocmd VimResized * wincmd =
 
 " Cursor line highlight
