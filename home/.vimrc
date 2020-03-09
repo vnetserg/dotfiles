@@ -1,29 +1,24 @@
 scriptencoding utf-8
-
-" Vundle init
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-set rtp+=~/contrib/fzf " FZF stock plugin
+" Plug init
+call plug#begin('~/.vim/plugged')
 
-" Vundle plugins
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'junegunn/fzf.vim'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'autozimu/LanguageClient-neovim'
-Plugin 'roxma/nvim-yarp'
-Plugin 'roxma/vim-hug-neovim-rpc'
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'itchyny/lightline.vim'
-Bundle 'christoomey/vim-tmux-navigator'
-Plugin 'drmingdrmer/vim-toggle-quickfix'
-Plugin 'preservim/nerdtree'
+" Plugins
+Plug 'mileszs/ack.vim'
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
+Plug 'Shougo/deoplete.nvim'
+Plug 'itchyny/lightline.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'drmingdrmer/vim-toggle-quickfix'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'preservim/nerdtree'
 
-" Vundle teardown
-call vundle#end()
+" Initialize plugin system
+call plug#end()
 
 " Ack plugin
 let g:ackprg = 'ag --vimgrep --path-to-ignore ~/.agignore'
@@ -41,7 +36,7 @@ let g:LanguageClient_useVirtualText = 'No'
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rls'],
     \ 'python': ['~/.local/bin/pyls'],
-    \ 'cpp': ['/usr/bin/clangd-9', '-clang-tidy'],
+    \ 'cpp': ['/usr/bin/clangd'],
     \ }
 let g:LanguageClient_diagnosticsDisplay = {
 \   1: { 'signText': '>>' },
@@ -101,8 +96,8 @@ nmap ,q <Plug>window:quickfix:loop
 nnoremap <C-P> <C-O>
 nnoremap <C-H> :lprev<CR>
 nnoremap <C-L> :lnext<CR>
-nnoremap <A-g> :vsplit<CR><C-w>l<CR>
-nnoremap <A-v> :split<CR><C-w>j<CR>
+nnoremap <A-g> :vsplit<CR>
+nnoremap <A-v> :split<CR>
 nnoremap <C-O> :edit 
 nnoremap <Backspace> <C-^>
 nnoremap <C-X> :q<CR>
