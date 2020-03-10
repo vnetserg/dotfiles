@@ -68,7 +68,7 @@ hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
 hi PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
 " Lightline plugin
 let g:lightline = {
