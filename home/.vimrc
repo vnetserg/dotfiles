@@ -36,7 +36,8 @@ let g:LanguageClient_useVirtualText = 'No'
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rls'],
     \ 'python': ['~/.local/bin/pyls'],
-    \ 'cpp': ['/usr/bin/clangd'],
+    \ 'cpp': ['/usr/bin/clangd-9', '-header-insertion=never', '--clang-tidy',
+    \         '--all-scopes-completion', '--background-index'],
     \ }
 let g:LanguageClient_diagnosticsDisplay = {
 \   1: { 'signText': '>>' },
@@ -115,8 +116,8 @@ set laststatus=2
 highlight ColorColumn ctermbg=0
 highlight SignColumn ctermbg=none
 highlight VertSplit cterm=none
-highlight ALEError ctermbg=none cterm=underline
-highlight ALEWarning ctermbg=none cterm=underline
+highlight ALEError ctermbg=none cterm=none
+highlight ALEWarning ctermbg=none cterm=none
 highlight ALEErrorSign ctermbg=none ctermfg=red cterm=bold
 highlight ALEWarningSign ctermbg=none ctermfg=yellow cterm=bold
 autocmd VimResized * wincmd =
@@ -154,6 +155,7 @@ EOF
 
 " Allow saving of files as sudo when I forgot to start vim using sudo
 cmap w!! w !sudo tee > /dev/null %
+cmap W! w!
 
 " Etc
 set encoding=utf-8
