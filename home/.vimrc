@@ -155,7 +155,7 @@ EOF
 
 " Allow saving of files as sudo when I forgot to start vim using sudo
 cmap w!! w !sudo tee > /dev/null %
-cmap W! w!
+cmap W<CR> w<CR>
 
 " Etc
 set encoding=utf-8
