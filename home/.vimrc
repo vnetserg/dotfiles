@@ -35,10 +35,13 @@ let g:LanguageClient_settingsPath = '~/.vim/settings.json'
 let g:LanguageClient_useVirtualText = 'No'
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rls'],
-    \ 'python': ['~/.local/bin/pyls'],
-    \ 'cpp': ['/usr/bin/clangd-9', '-header-insertion=never', '--clang-tidy',
+    \ 'python': ['~/bin/pyls'],
+    \ 'go': ['~/code/go/bin/go-langserver'],
+    \ 'cpp': ['/usr/bin/clangd', '-header-insertion=never', '--clang-tidy',
     \         '--all-scopes-completion', '--background-index'],
-    \ }
+    \ 'c': ['/usr/bin/clangd', '-header-insertion=never',
+    \         '--all-scopes-completion', '--background-index'],
+\ }
 let g:LanguageClient_diagnosticsDisplay = {
 \   1: { 'signText': '>>' },
 \   2: { 'signText': '--' },

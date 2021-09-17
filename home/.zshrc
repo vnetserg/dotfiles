@@ -3,7 +3,7 @@
 #
 
 # Common
-export PATH="${HOME}/bin:${HOME}/.local/bin:${HOME}/.cargo/bin:${PATH}"
+export PATH="${HOME}/bin:${HOME}/.local/bin:${HOME}/.cargo/bin:${HOME}/code/go/bin:${PATH}"
 export TERM=xterm-256color
 export EDITOR=vim
 export VIMINIT="source ${HOME}/.vimrc"
@@ -18,7 +18,7 @@ export FZF_DEFAULT_COMMAND='ag -g "" --path-to-ignore ~/.agignore'
 # Virtualenv wrapper
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=$HOME/.virtualenvs
-source $HOME/.local/bin/virtualenvwrapper.sh
+# source $HOME/.local/bin/virtualenvwrapper.sh
 
 #
 # ALIASES:
