@@ -86,7 +86,7 @@
 	{
 		"key": ";",
 		"command": "workbench.action.quickOpen",
-		"when": "!textInputFocus"
+		"when": "!textInputFocus && !panelFocus"
 	},
 	{
 		"key": "down",

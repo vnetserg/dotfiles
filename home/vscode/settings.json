@@ -127,4 +127,5 @@
     "rust-analyzer.inlayHints.typeHints.enable": false,
     "files.insertFinalNewline": true,
     "window.zoomLevel": -1,
+    "terminal.integrated.defaultProfile.linux": "zsh",
 }
