@@ -1,0 +1,130 @@
+{
+    "editor.rulers": [
+        100
+    ],
+    "workbench.editor.showTabs": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "[go]": {
+        "editor.snippetSuggestions": "none",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+        },
+    },
+    "gopls": {
+        "build.expandWorkspaceToModule": false,
+    },
+    "[rust]": {
+        "editor.formatOnSave": true
+    },
+    "vim.commandLineModeKeyBindings": [
+        {
+            "before": ["W", "<CR>"],
+            "after": ["w", "<CR>"]
+        },
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [",", "d"],
+            "commands": [
+                "editor.action.revealDefinition"
+            ]
+        },
+        {
+            "before": [",", "D"],
+            "commands": [
+                "workbench.action.splitEditorRight",
+                "editor.action.revealDefinition"
+            ]
+        },
+        {
+            "before": [",", "r"],
+            "commands": [
+                "editor.action.goToReferences"
+            ]
+        },
+        {
+            "before": [",", "R"],
+            "commands": [
+                "editor.action.rename"
+            ]
+        },
+        {
+            "before": [",", "t"],
+            "commands": [
+                "editor.action.goToTypeDefinition"
+            ]
+        },
+        {
+            "before": [";"],
+            "commands": [
+                // "fzf-quick-open.runFzfFile"
+                "workbench.action.quickOpen"
+            ]
+        },
+        {
+            "before": [",", "h"],
+            "commands": [
+                "editor.action.showHover"
+            ]
+        },
+        {
+            "before": [",", "s"],
+            "commands": [
+                "clangd.switchheadersource"
+            ]
+        },
+    ],
+    "editor.minimap.enabled": false,
+    "clangd.path": "/home/se4min/.config/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/12.0.1/clangd_12.0.1/bin/clangd",
+    "terminal.integrated.fontSize": 15,
+    "editor.renderLineHighlightOnlyWhenFocus": true,
+    "clangd": {
+        "semanticHighlighting": false,
+    },
+    "editor.semanticHighlighting.enabled": false,
+    "clangd.arguments": [
+        "-header-insertion=never"
+    ],
+    "workbench.colorTheme": "Monokai",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "python.showStartPage": false,
+    "rust.clippy_preference": "on",
+    "rust-client.engine": "rust-analyzer",
+    "rust-analyzer.callInfo.full": false,
+    "rust-analyzer.inlayHints.enable": false,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "editor.cursorStyle": "line",
+    "editor.insertSpaces": false,
+    "editor.lineNumbers": "on",
+    "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+    "editor.wordWrap": "off",
+    "go.toolsManagement.autoUpdate": true,
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "window.customMenuBarAltFocus": true,
+    "window.menuBarVisibility": "toggle",
+    "editor.fontSize": 15,
+    "files.trimTrailingWhitespace": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "terminal.integrated.allowChords": false,
+    "terminal.integrated.drawBoldTextInBrightColors": false,
+    "terminal.integrated.experimentalLinkProvider": false,
+    "terminal.integrated.rendererType": "auto",
+    "editor.language.colorizedBracketPairs": [],
+    "rust-analyzer.inlayHints.chainingHints.enable": false,
+    "rust-analyzer.inlayHints.typeHints.enable": false,
+    "files.insertFinalNewline": true,
+    "window.zoomLevel": -1,
+}
