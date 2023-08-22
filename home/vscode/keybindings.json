@@ -5,15 +5,6 @@
 		"command": "workbench.action.splitEditorRight"
 	},
 	{
-		"key": "ctrl+k ctrl+\\",
-		"command": "-workbench.action.splitEditorRight"
-	},
-	{
-		"key": "ctrl+alt+z",
-		"command": "workbench.action.maximizeEditor",
-		"when": "!panelFocus"
-	},
-	{
 		"key": "ctrl+`",
 		"command": "workbench.action.toggleSidebarVisibility"
 	},
@@ -24,16 +15,6 @@
 	{
 		"key": "alt+j",
 		"command": "terminal.focus"
-	},
-	{
-		"key": "alt+k",
-		"command": "workbench.files.action.focusOpenEditorsView",
-		"when": "workbench.explorer.openEditorsView.active"
-	},
-	{
-		"key": "ctrl+k e",
-		"command": "-workbench.files.action.focusOpenEditorsView",
-		"when": "workbench.explorer.openEditorsView.active"
 	},
 	{
 		"key": "alt+k",
@@ -48,24 +29,12 @@
 		"command": "workbench.action.focusLeftGroup"
 	},
 	{
-		"key": "ctrl+k ctrl+left",
-		"command": "-workbench.action.focusLeftGroup"
-	},
-	{
 		"key": "alt+l",
 		"command": "workbench.action.focusRightGroup"
 	},
 	{
-		"key": "ctrl+k ctrl+right",
-		"command": "-workbench.action.focusRightGroup"
-	},
-	{
 		"key": "ctrl+x",
 		"command": "workbench.action.closeEditorsInGroup"
-	},
-	{
-		"key": "ctrl+k w",
-		"command": "-workbench.action.closeEditorsInGroup"
 	},
 	{
 		"key": "ctrl+alt+z",
@@ -75,62 +44,12 @@
 	{
 		"key": "ctrl+alt+z",
 		"when": "!panelFocus",
-		"command": "runCommands",
-		"args": {
-			"commands": [
-				"workbench.action.togglePanel",
-				"workbench.action.focusActiveEditorGroup"
-			]
-		}
+		"command": "workbench.action.togglePanel",
 	},
 	{
 		"key": ";",
 		"command": "workbench.action.quickOpen",
 		"when": "!textInputFocus && !panelFocus"
-	},
-	{
-		"key": "down",
-		"command": "editor.action.scrollDownHover",
-		"when": "editorHoverFocused"
-	},
-	{
-		"key": "down",
-		"command": "-editor.action.scrollDownHover",
-		"when": "editorHoverFocused"
-	},
-	{
-		"key": "ctrl+j",
-		"command": "-workbench.action.togglePanel"
-	},
-	{
-		"key": "down",
-		"command": "list.focusDown",
-		"when": "listFocus && !inputFocus"
-	},
-	{
-		"key": "down",
-		"command": "-list.focusDown",
-		"when": "listFocus && !inputFocus"
-	},
-	{
-		"key": "ctrl+down",
-		"command": "selectNextSuggestion",
-		"when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
-	},
-	{
-		"key": "ctrl+down",
-		"command": "-selectNextSuggestion",
-		"when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
-	},
-	{
-		"key": "ctrl+down",
-		"command": "selectNextCodeAction",
-		"when": "codeActionMenuVisible"
-	},
-	{
-		"key": "ctrl+down",
-		"command": "-selectNextCodeAction",
-		"when": "codeActionMenuVisible"
 	},
 	{
 		"key": "ctrl+j",
@@ -139,5 +58,15 @@
 	{
 		"key": "ctrl+k",
 		"command": "workbench.action.quickOpenSelectPrevious"
+	},
+	{
+		"key": "alt+g",
+		"command": "workbench.action.terminal.split",
+		"when": "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile"
+	},
+	{
+		"key": "ctrl+`",
+		"command": "-workbench.action.terminal.toggleTerminal",
+		"when": "terminal.active"
 	},
 ]
