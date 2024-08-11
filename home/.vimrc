@@ -10,12 +10,13 @@ Plug 'mileszs/ack.vim'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
-Plug 'Shougo/deoplete.nvim'
+" Plug 'Shougo/deoplete.nvim'
 Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'drmingdrmer/vim-toggle-quickfix'
-Plug 'vim-scripts/indentpython.vim'
+" Plug 'vim-scripts/indentpython.vim'
 Plug 'preservim/nerdtree'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Initialize plugin system
 call plug#end()
@@ -30,7 +31,11 @@ nnoremap ,b :Buffers<CR>
 nnoremap ; :Files<CR>
 
 " LanguageClient plugin
+let g:LanguageClient_loggingLevel='DEBUG'
+let g:LanguageClient_loggingFile = expand('~/LanguageClient.log')
+
 set hidden " Required for operations modifying multiple buffers like rename.
+call LanguageClient#setDiagnosticsList('Disabled')
 let g:LanguageClient_settingsPath = '~/.vim/settings.json'
 let g:LanguageClient_useVirtualText = 'No'
 let g:LanguageClient_serverCommands = {
@@ -42,10 +47,13 @@ let g:LanguageClient_serverCommands = {
     \ 'c': ['/usr/bin/clangd', '-header-insertion=never',
     \         '--all-scopes-completion', '--background-index'],
 \ }
+
 let g:LanguageClient_diagnosticsDisplay = {
 \   1: { 'signText': '>>' },
 \   2: { 'signText': '--' },
 \}
+
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 
 nnoremap <silent> ,h :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> ,d :call LanguageClient#textDocument_definition()<CR>
@@ -58,8 +66,7 @@ nnoremap <silent> ,f :call LanguageClient#textDocument_codeAction()<CR>:sleep 10
 nnoremap <silent> ,F :call LanguageClient#textDocument_codeAction()<CR>
 nnoremap <silent> ,/ :call LanguageClient#textDocument_documentSymbol()<CR>
 nnoremap <silent> ,s :call LanguageClient#workspace_symbol()<CR>
-nnoremap <silent> ,c :sign unplace *<CR>
-
+nnoremap <silent> ,c :sign unplace *<CR>:echom " "<CR>
 
 " Deoplete autocompletion
 let g:deoplete#enable_at_startup = 1
@@ -145,16 +152,6 @@ filetype plugin indent on
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
-
-" Auto-activate Python virtualenv
-py3 << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
 
 " Allow saving of files as sudo when I forgot to start vim using sudo
 cmap w!! w !sudo tee > /dev/null %

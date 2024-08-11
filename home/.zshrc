@@ -2,6 +2,9 @@
 # ENVIRONMENT VARIABLES:
 #
 
+# SSH
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+
 # Common
 export PATH="${HOME}/bin:${HOME}/.local/bin:${HOME}/.cargo/bin:${HOME}/code/go/bin:${PATH}"
 export TERM=xterm-256color
@@ -13,16 +16,19 @@ export GOPATH=${HOME}/code/go
 export PATH=/usr/local/go/bin:$PATH
 
 # FZF
-export FZF_DEFAULT_COMMAND='ag -g "" --path-to-ignore ~/.agignore'
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --follow'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Virtualenv wrapper
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=$HOME/.virtualenvs
+# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+# export WORKON_HOME=$HOME/.virtualenvs
 # source $HOME/.local/bin/virtualenvwrapper.sh
 
 #
 # ALIASES:
 #
+alias y="yazi"
+alias za="zellij attach"
 alias sudo="sudo "
 alias vi="vim"
 alias ls="ls -h --color=auto"
@@ -43,7 +49,7 @@ fi
 
 # Oh-my-zsh configuration
 export ZSH="${HOME}/.oh-my-zsh"
-ZSH_THEME="bira-custom"
+ZSH_THEME="eastwood-custom"
 plugins=(
     git
     vi-mode
