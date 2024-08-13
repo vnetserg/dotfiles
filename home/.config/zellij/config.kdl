@@ -147,7 +147,7 @@ keybinds {
     shared_except "locked" {
         bind "Alt ." { GoToNextTab; }
         bind "Alt ," { GoToPreviousTab; }
-        bind "Alt >" { NewTab; }
+        bind "Alt N" { NewTab; }
         bind "Alt z" { ToggleFocusFullscreen; }
         bind "Alt Z" { ToggleFocusFullscreen; }
         bind "Alt R" { SwitchToMode "RenameTab"; TabNameInput 0; }
@@ -162,8 +162,8 @@ keybinds {
 
         bind "Ctrl g" { SwitchToMode "Locked"; }
         bind "Ctrl q" { Quit; }
-        bind "Alt i" { MoveTab "Left"; }
-        bind "Alt o" { MoveTab "Right"; }
+        bind "Alt <" { MoveTab "Left"; }
+        bind "Alt >" { MoveTab "Right"; }
         bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
         bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
         bind "Alt j" "Alt Down" { MoveFocus "Down"; }

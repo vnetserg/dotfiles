@@ -27,7 +27,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #
 # ALIASES:
 #
-alias y="yazi"
 alias za="zellij attach"
 alias sudo="sudo "
 alias vi="vim"
@@ -43,13 +42,23 @@ if [ -f "$(which pacman)" ]; then
     alias remove-orphans="pacman -Rns $(pacman -Qtdq)"
 fi
 
+# Yazi wrapper that changes cwd when exiting yazi
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 #
 # PLUGINS:
 #
 
 # Oh-my-zsh configuration
 export ZSH="${HOME}/.oh-my-zsh"
-ZSH_THEME="eastwood-custom"
+ZSH_THEME="robbyrussell-custom"
 plugins=(
     git
     vi-mode
