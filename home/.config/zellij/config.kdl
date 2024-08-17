@@ -155,17 +155,16 @@ keybinds {
         bind "Alt J" { Resize "Increase Down"; }
         bind "Alt K" { Resize "Increase Up"; }
         bind "Alt L" { Resize "Increase Right"; }
-        bind "Alt v" { NewPane "Down"; SwitchToMode "Normal"; }
-        bind "Alt g" { NewPane "Right"; SwitchToMode "Normal"; }
+        bind "Alt J" { NewPane "Down"; SwitchToMode "Normal"; }
+        bind "Alt L" { NewPane "Right"; SwitchToMode "Normal"; }
         bind "Alt D" { Detach; }
         bind "Alt n" { ToggleFloatingPanes; }
 
         bind "Ctrl g" { SwitchToMode "Locked"; }
-        bind "Ctrl q" { Quit; }
         bind "Alt <" { MoveTab "Left"; }
         bind "Alt >" { MoveTab "Right"; }
-        bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
-        bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
+        bind "Alt h" "Alt Left" { MoveFocus "Left"; }
+        bind "Alt l" "Alt Right" { MoveFocus "Right"; }
         bind "Alt j" "Alt Down" { MoveFocus "Down"; }
         bind "Alt k" "Alt Up" { MoveFocus "Up"; }
         bind "Alt =" "Alt +" { Resize "Increase"; }

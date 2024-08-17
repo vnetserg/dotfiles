@@ -15,15 +15,6 @@ export VIMINIT="source ${HOME}/.vimrc"
 export GOPATH=${HOME}/code/go
 export PATH=/usr/local/go/bin:$PATH
 
-# FZF
-export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --follow'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-# Virtualenv wrapper
-# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-# export WORKON_HOME=$HOME/.virtualenvs
-# source $HOME/.local/bin/virtualenvwrapper.sh
-
 #
 # ALIASES:
 #
@@ -31,16 +22,6 @@ alias za="zellij attach"
 alias sudo="sudo "
 alias vi="vim"
 alias ls="ls -h --color=auto"
-alias ag="ag --path-to-ignore ~/.agignore"
-alias cmake="cmake -GNinja"
-alias cmake-asan="cmake -DCMAKE_BUILD_TYPE=ASAN"
-alias cmake-tsan="cmake -DCMAKE_BUILD_TYPE=TSAN"
-if [ ! -f "$(which update-grub)" ]; then
-    alias update-grub='bash -c "grub-mkconfig -o /boot/grub/grub.cfg.tmp && mv /boot/grub/grub.cfg.tmp /boot/grub/grub.cfg"'
-fi
-if [ -f "$(which pacman)" ]; then
-    alias remove-orphans="pacman -Rns $(pacman -Qtdq)"
-fi
 
 # Yazi wrapper that changes cwd when exiting yazi
 function yy() {
@@ -51,6 +32,7 @@ function yy() {
 	fi
 	rm -f -- "$tmp"
 }
+bindkey -s '^Y' 'yy^M'
 
 #
 # PLUGINS:
@@ -70,26 +52,16 @@ source $ZSH/oh-my-zsh.sh
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 
-# Enable edit undo and redo
-bindkey "^u" undo
-bindkey "^r" redo
-
-# Go to beggining/end of the line
-bindkey "^a" beginning-of-line
-bindkey "^e" end-of-line
-
-# Make backspace work properly in vi mode
-bindkey "^?" backward-delete-char
-bindkey "^W" backward-kill-word
-bindkey "^H" backward-delete-char
-bindkey "^U" backward-kill-line
-
 # Z tool
 source /home/se4min/.zsh/z/z.sh
 
-# FZF widget
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-bindkey '^G' fzf-cd-widget
+# FZF
+source <(fzf --zsh)
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --follow'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+bindkey '^F' fzf-file-widget
+bindkey '^W' fzf-cd-widget
+bindkey '^R' fzf-history-widget
 
 # Time format
 export TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
@@ -107,3 +79,37 @@ fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+#
+# Vim mode configuration.
+#
+
+# Activate vim mode.
+bindkey -v
+
+# Remove mode switching delay.
+KEYTIMEOUT=5
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+}
+zle -N zle-keymap-select
+
+# Use beam shape cursor on startup.
+echo -ne '\e[5 q'
+
+# Use beam shape cursor for each new prompt.
+precmd_vim_cursor() {
+   echo -ne '\e[5 q'
+}
+precmd_functions+=(precmd_vim_cursor)
