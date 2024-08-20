@@ -1,0 +1,26 @@
+theme = "base16_transparent"
+
+[editor]
+true-color = true
+rulers = [100]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[keys.normal]
+C-y = ["scroll_up"]
+C-e = ["scroll_down" ]
+C-x = ":q"
+A-s = ":w"
+A-h = "jump_view_left"
+A-j = "jump_view_down"
+A-k = "jump_view_up"
+A-l = "jump_view_right"
+A-L = ":vsplit"
+A-J = ":hsplit"
+
+[keys.select]
+C-y = ["scroll_up"]
+C-e = ["scroll_down" ]
