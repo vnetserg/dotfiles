@@ -5,5 +5,5 @@ desc = "Cancel input"
 
 [[manager.prepend_keymap]]
 on   = ["L"]
-run  = "shell \"hxo $@\"\n"
+run  = "shell --confirm \"hxo $@\"\n"
 desc = "Open selected file in Helix"
