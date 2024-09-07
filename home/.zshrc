@@ -1,3 +1,6 @@
+# Activate vim mode.
+bindkey -v
+
 #
 # ENVIRONMENT VARIABLES:
 #
@@ -8,7 +11,7 @@ export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 # Common
 export PATH="${HOME}/bin:${HOME}/.local/bin:${HOME}/.cargo/bin:${HOME}/code/go/bin:${PATH}"
 export TERM=xterm-256color
-export EDITOR=vim
+export EDITOR=hx
 export VIMINIT="source ${HOME}/.vimrc"
 
 # Go
@@ -52,8 +55,8 @@ source $ZSH/oh-my-zsh.sh
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 
-# Z tool
-source /home/se4min/.zsh/z/z.sh
+# Zoxide
+eval "$(zoxide init zsh)"
 
 # FZF
 source <(fzf --zsh)
@@ -83,9 +86,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 #
 # Vim mode configuration.
 #
-
-# Activate vim mode.
-bindkey -v
 
 # Remove mode switching delay.
 KEYTIMEOUT=5
