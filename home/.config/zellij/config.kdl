@@ -3,9 +3,11 @@ keybinds clear-defaults=true{
     normal {
         // uncomment this and adjust key if using copy_on_select=false
         // bind "Alt c" { Copy; }
+        bind "Alt Z" { ToggleFocusFullscreen; SwitchToMode "locked"; }
     }
     locked {
         bind "Ctrl g" { SwitchToMode "Normal"; }
+        bind "Alt Z" { ToggleFocusFullscreen; SwitchToMode "normal"; }
     }
     resize {
         bind "Ctrl q" { SwitchToMode "Normal"; }
@@ -148,7 +150,7 @@ keybinds clear-defaults=true{
         bind "Alt ." { GoToNextTab; }
         bind "Alt ," { GoToPreviousTab; }
         bind "Alt >" { NewTab; }
-        bind "Alt <" { NewTab; GoToPreviousTab; GoToPreviousTab; }
+        bind "Alt <" { NewTab; MoveTab "Left"; }
         bind "Alt z" { ToggleFocusFullscreen; }
         bind "Alt Left" { Resize "Increase Left"; }
         bind "Alt Down" { Resize "Increase Down"; }
@@ -167,7 +169,7 @@ keybinds clear-defaults=true{
         bind "Alt j" { MoveFocus "Down"; }
         bind "Alt k" { MoveFocus "Up"; }
 
-        bind "Ctrl g" { SwitchToMode "Locked"; }
+        bind "Ctrl g" { SwitchToMode "locked"; }
         bind "Alt =" "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt [" { PreviousSwapLayout; }
