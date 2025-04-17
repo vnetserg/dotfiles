@@ -147,21 +147,21 @@ keybinds clear-defaults=true{
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
     }
     shared {
-        bind "Alt ." { GoToNextTab; }
-        bind "Alt ," { GoToPreviousTab; }
-        bind "Alt >" { NewTab; }
-        bind "Alt <" { NewTab; MoveTab "Left"; }
         bind "Alt z" { ToggleFocusFullscreen; }
         bind "Alt Left" { Resize "Increase Left"; }
         bind "Alt Down" { Resize "Increase Down"; }
         bind "Alt Up" { Resize "Increase Up"; }
         bind "Alt Right" { Resize "Increase Right"; }
         bind "Alt D" { Detach; }
-        bind "Alt n" { ToggleFloatingPanes; }
+        bind "Alt N" { ToggleFloatingPanes; }
         bind "Alt (" { MoveTab "Left"; }
         bind "Alt )" { MoveTab "Right"; }
     }
     shared_except "locked" {
+        bind "Alt ." { GoToNextTab; }
+        bind "Alt ," { GoToPreviousTab; }
+        bind "Alt >" { NewTab; }
+        bind "Alt <" { NewTab; MoveTab "Left"; }
         bind "Alt J" { NewPane "Down"; }
         bind "Alt L" { NewPane "Right"; }
         bind "Alt h" { MoveFocus "Left"; }

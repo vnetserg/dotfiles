@@ -1,0 +1,16 @@
+#!/bin/bash
+
+is_floating=$(zellij action dump-layout | grep focus=true | grep hide_floating_panes=true)
+if [[ -z "$is_floating" ]]; then
+  zellij action toggle-floating-panes
+fi
+
+zellij action move-focus left
+zellij action write 27 # send escape-key
+zellij action write-chars ":open $(readlink -f $1)"
+zellij action write 13 # send enter-key
+
+if [[ -z "$is_floating" ]]; then
+  zellij action toggle-floating-panes
+  zellij action close-pane
+fi

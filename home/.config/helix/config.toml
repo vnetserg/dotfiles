@@ -21,6 +21,8 @@ A-k = "jump_view_up"
 A-l = "jump_view_right"
 A-L = ":vsplit"
 A-J = ":hsplit"
+A-F = ":sh zellij action new-pane -f -c -- zsh -ic \"cd $(dirname %{buffer_name}); yy\""
+A-C = ":sh zellij action new-pane -f -c -- zsh -ic \"cd $(dirname %{buffer_name}); exec zsh\""
 
 [keys.select]
 C-y = ["scroll_up"]
