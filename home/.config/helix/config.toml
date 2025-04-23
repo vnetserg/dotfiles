@@ -14,16 +14,23 @@ select = "underline"
 C-y = ["scroll_up"]
 C-e = ["scroll_down" ]
 C-x = ":q"
-A-s = ":w"
+A-s = ":w!"
 A-h = "jump_view_left"
 A-j = "jump_view_down"
 A-k = "jump_view_up"
 A-l = "jump_view_right"
 A-L = ":vsplit"
 A-J = ":hsplit"
-A-F = ":sh zellij action new-pane -f -c -- zsh -ic \"yazi %{buffer_name}\""
-A-C = ":sh zellij action new-pane -f -c -- zsh -ic \"cd $(dirname %{buffer_name}); exec zsh\""
+A-F = ":sh zellij action new-pane -f -c -- yazi %{buffer_name}"
+A-C = ":sh zellij action new-pane -f -c -- nu -e \"cd (dirname %{buffer_name})\""
+
+[keys.normal.space.space]
+"l" = ":pipe ~/bin/hx-llm.py"
+
+[keys.select.space.space]
+"l" = ":pipe ~/bin/hx-llm.py"
+
 
 [keys.select]
 C-y = ["scroll_up"]
-C-e = ["scroll_down" ]
+C-e = ["scroll_down"]
