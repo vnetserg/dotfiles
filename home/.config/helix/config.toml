@@ -21,7 +21,7 @@ A-k = "jump_view_up"
 A-l = "jump_view_right"
 A-L = ":vsplit"
 A-J = ":hsplit"
-A-F = ":sh zellij action new-pane -f -c -- yazi %{buffer_name}"
+A-F = ":sh zellij action new-pane -f -c -- nu -c \"yazi %{buffer_name}\""
 A-C = ":sh zellij action new-pane -f -c -- nu -e \"cd (dirname %{buffer_name})\""
 
 [keys.normal.space.space]

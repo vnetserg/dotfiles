@@ -25,11 +25,23 @@ $env.config.cursor_shape = {
 
 # Environment variables
 $env.EDITOR = "hx"
-$env.HELIX_RUNTIME = "~/code/contrib/helix/runtime"
-$env.PATH = $env.PATH | append ["~/bin" "~/.cargo/bin"]
+$env.HELIX_RUNTIME = "~/code/contrib/helix/runtime" | path expand
+$env.PATH = $env.PATH | append ["~/bin" "~/.cargo/bin", "~/.local/bin"]
 
-# Aliases
-alias za = zellij attach
+def --env yy [...args] {
+  let tmp = mktemp -t "yazi-cwd.XXXXXX"
+  yazi ...$args $"--cwd-file=($tmp)"
+  cd (open $tmp)
+  rm -f $tmp
+}
+
+def za [] {
+  let pids = ps -l | where name == zellij and command =~ "attach main" | get pid
+  if ($pids | length) > 0 {
+    kill -f ($pids | first) ...($pids | skip 1)
+  }
+  zellij attach main
+}
 
 # Keybindings
 $env.config.keybindings = [
@@ -37,7 +49,7 @@ $env.config.keybindings = [
     name: fuzzy_history_fzf
     modifier: control
     keycode: char_r
-    mode: [emacs, vi_normal, vi_insert]
+    mode: [emacs vi_normal vi_insert]
     event: {
       send: executehostcommand
       cmd: "commandline edit --replace (
@@ -52,10 +64,20 @@ $env.config.keybindings = [
       )"
     }
   }
+  {
+    name: yazi
+    modifier: control
+    keycode: char_y
+    mode: [emacs vi_normal vi_insert]
+    event: {
+      send: executehostcommand
+      cmd: "yy"
+    }
+  }
 ]
 
 # Zoxide
 source zoxide.nu
 
 # Yandex-specific settings
-source ya.nu
+source ya/ya.nu

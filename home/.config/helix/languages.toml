@@ -1,0 +1,8 @@
+[language-server.gopls-arc]
+command = "gopls-arc"
+config = { arcadiaIndexDirs = [ "/home/se4min/code/arcadia/library/go", "/home/se4min/code/arcadia/yt", "/home/se4min/code/arcadia/yp", "/home/se4min/code/arcadia/dns_storage" ] }
+
+[[language]]
+name = "go"
+language-servers = ["gopls-arc"]
+formatter = { command = "ya", args = [ "tool", "yoimports", "-w", "-" ] }
