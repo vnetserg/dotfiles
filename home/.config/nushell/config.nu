@@ -40,7 +40,7 @@ def za [] {
   if ($pids | length) > 0 {
     kill -f ...$pids
   }
-  zellij attach main
+  zellij attach main -c
 }
 
 # Keybindings
