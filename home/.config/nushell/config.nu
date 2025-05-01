@@ -38,7 +38,7 @@ def --env yy [...args] {
 def za [] {
   let pids = ps -l | where name == zellij and command =~ "attach main" | get pid
   if ($pids | length) > 0 {
-    kill -f ($pids | first) ...($pids | skip 1)
+    kill -f ...$pids
   }
   zellij attach main
 }
