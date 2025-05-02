@@ -26,7 +26,13 @@ $env.config.cursor_shape = {
 # Environment variables
 $env.EDITOR = "hx"
 $env.HELIX_RUNTIME = "~/code/contrib/helix/runtime" | path expand
-$env.PATH = $env.PATH | append ["~/bin" "~/.cargo/bin", "~/.local/bin"]
+$env.PATH = $env.PATH | append [
+  ~/bin
+  ~/.cargo/bin
+  ~/.local/bin
+  /usr/local/bin
+  /opt/homebrew/bin
+]
 
 def --env yy [...args] {
   let tmp = mktemp -t "yazi-cwd.XXXXXX"
@@ -43,6 +49,8 @@ def za [] {
   zellij attach main -c
 }
 
+alias fzf-preset = fzf --scheme=history --read0 --tiebreak=chunk --layout=reverse --preview='echo {..}' --preview-window='bottom:3:wrap' --bind alt-up:preview-up,alt-down:preview-down --height=70% --preview='echo -n {} | nu --stdin -c nu-highlight'
+
 # Keybindings
 $env.config.keybindings = [
   {
@@ -58,9 +66,41 @@ $env.config.keybindings = [
           | reverse
           | uniq
           | str join (char -i 0)
-          | fzf --scheme=history --read0 --tiebreak=chunk --layout=reverse --preview='echo {..}' --preview-window='bottom:3:wrap' --bind alt-up:preview-up,alt-down:preview-down --height=70% -q (commandline) --preview='echo -n {} | nu --stdin -c \'nu-highlight\''
+          | fzf-preset -q (commandline)
           | decode utf-8
           | str trim
+      )"
+    }
+  }
+  {
+    name: fuzzy_file_fzf
+    modifier: control
+    keycode: char_f
+    mode: [emacs vi_normal vi_insert]
+    event: {
+      send: executehostcommand
+      cmd: "commandline edit --insert (
+        fd --follow
+          | lines
+          | str join (char -i 0)
+          | fzf-preset
+      )"
+    }
+  }
+  {
+    name: fuzzy_cd_history_fzf
+    modifier: control
+    keycode: char_u
+    mode: [emacs vi_normal vi_insert]
+    event: {
+      send: executehostcommand
+      cmd: "cd (
+        zoxide query -l ''
+          | lines
+          | where { |x| $x != $env.PWD }
+          | str replace $nu.home-path ~
+          | str join (char -i 0)
+          | fzf-preset
       )"
     }
   }
