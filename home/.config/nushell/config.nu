@@ -32,7 +32,7 @@ def za [] {
   zellij attach main -c
 }
 
-alias fzf-preset = fzf --scheme=history --read0 --tiebreak=chunk --layout=reverse --preview='echo {..}' --preview-window='bottom:3:wrap' --bind alt-up:preview-up,alt-down:preview-down --height=70% --preview='echo -n {} | nu --stdin -c nu-highlight'
+alias fzf-preset = fzf --scheme=history --read0 --layout=reverse --preview='echo {..}' --preview-window='bottom:3:wrap' --bind alt-up:preview-up,alt-down:preview-down --height=70% --preview='echo -n {} | nu --stdin -c nu-highlight'
 
 # Keybindings
 $env.config.keybindings = [
@@ -71,20 +71,13 @@ $env.config.keybindings = [
     }
   }
   {
-    name: fuzzy_cd_history_fzf
+    name: quicknav
     modifier: control
     keycode: char_u
     mode: [emacs vi_normal vi_insert]
     event: {
       send: executehostcommand
-      cmd: "cd (
-        zoxide query -l ''
-          | lines
-          | where { |x| $x != $env.PWD }
-          | str replace $nu.home-path ~
-          | str join (char -i 0)
-          | fzf-preset
-      )"
+      cmd: "quicknav-hotkey"
     }
   }
   {
@@ -98,6 +91,103 @@ $env.config.keybindings = [
     }
   }
 ]
+
+#
+# Quick navigation module
+#
+
+module quicknav {
+  const FILES_DB_PATH = "~/.config/nushell/files_db.txt" | path expand
+  const FILES_DB_SIZE = 10000
+
+  def pre-exec-hook [] {
+    let entries = commandline
+      | split row " "
+      | where { $in | path exists }
+      | path expand
+
+    let old_history = try {
+      open $FILES_DB_PATH | lines
+    } catch {
+      []
+    }
+    let history_filtered = $old_history
+      | where { |old_entry| not ($entries | any { |entry| $entry == $old_entry } ) }
+    let new_history = $entries ++ $history_filtered | take $FILES_DB_SIZE
+
+    let tmp = mktemp files_db.tmp.XXXXXX -p ($FILES_DB_PATH | path dirname)
+    $new_history | str join "\n" | save -f $tmp
+    mv -f $tmp $FILES_DB_PATH
+  }
+
+  export-env {
+    $env.config.hooks.pre_execution = $env.config.hooks.pre_execution | append { pre-exec-hook }
+  }
+
+  export def --env quicknav-hotkey [] {
+    let words = commandline | split row " "
+    let cursor = (commandline get-cursor)
+    let word_index = find-word $words $cursor
+    let is_leading = $words | take $word_index | all { $in | str trim | is-empty }
+    if $is_leading {
+      let path = fuzzy-cd-path (commandline)
+      cd $path
+    } else {
+      let arg = fuzzy-file-path ($words | get -i $word_index | default "")
+      let new_words = $words | update $word_index $arg
+      commandline edit --replace ($new_words | str join " ")
+      commandline set-cursor (position-after-word $new_words $word_index)
+    }
+  }
+
+  def find-word [ words: list<string>, cursor: int ] {
+    mut current = -1
+    for item in ($words | enumerate) {
+      let len = $item.item | str length
+      $current = $current + $len + 1
+      if $cursor <= $current {
+        return $item.index
+      }
+    }
+    return ($words | length)
+  }
+
+  def fuzzy-cd-path [ query: string ] {
+    zoxide query -l ""
+      | lines
+      | where { $in != $env.PWD }
+      | str replace $nu.home-path ~
+      | str join (char -i 0)
+      | fzf-preset -q $query
+  }
+
+  def fuzzy-file-path [ query: string ] {
+    let paths = try {
+      open $FILES_DB_PATH | lines
+    } catch {
+      []
+    }
+    $paths
+      | where { $in | path exists }
+      | str replace $nu.home-path ~
+      | str join (char -i 0)
+      | fzf-preset -q $query
+  }
+
+  def position-after-word [ words: list<string>, index: int ] {
+    mut current = -1
+    for item in ($words | enumerate) {
+      let len = $item.item | str length
+      $current = $current + $len + 1
+      if $index == $item.index {
+        return $current
+      }
+    }
+    return [0 $current] | math max
+  }
+}
+
+use quicknav *
 
 # Zoxide
 source zoxide.nu
