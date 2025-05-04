@@ -103,7 +103,7 @@ module quicknav {
   def pre-exec-hook [] {
     let entries = commandline
       | split row " "
-      | where { $in | path exists }
+      | where { ($in | path type) == "file" }
       | path expand
 
     let old_history = try {
