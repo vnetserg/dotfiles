@@ -4,6 +4,7 @@ theme = "base16_transparent"
 true-color = true
 rulers = [100]
 popup-border = "all"
+line-number = "relative"
 
 [editor.cursor-shape]
 insert = "bar"
