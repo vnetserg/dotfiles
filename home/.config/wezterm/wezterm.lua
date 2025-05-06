@@ -91,4 +91,6 @@ config.keys = {
  },
 }
 
+config.native_macos_fullscreen_mode = true
+
 return config
