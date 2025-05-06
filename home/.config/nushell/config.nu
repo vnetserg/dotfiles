@@ -32,7 +32,7 @@ def za [] {
   zellij attach main -c
 }
 
-alias fzf-preset = fzf --scheme=history --read0 --layout=reverse --preview='echo {..}' --preview-window='bottom:3:wrap' --bind alt-up:preview-up,alt-down:preview-down --height=70% --preview='echo {} | nu --stdin -c nu-highlight'
+alias fzf-preset = fzf --scheme=history --read0 --layout=reverse --preview='echo {..}' --preview-window='bottom:3:wrap' --bind alt-up:preview-up,alt-down:preview-down --height=70% --preview='echo {} | nu --stdin -c "nu-highlight | str trim"'
 
 # Keybindings
 $env.config.keybindings = [
