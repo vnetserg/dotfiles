@@ -133,7 +133,11 @@ module quicknav {
       let path = fuzzy-cd-path (commandline)
       cd $path
     } else {
-      let arg = fuzzy-file-path ($words | get -i $word_index | default "")
+      mut arg = fuzzy-file-path ($words | get -i $word_index | default "")
+      if ($arg | str contains " ") {
+        $arg = $"`($arg)`"
+      }
+
       let new_words = $words | update $word_index $arg
       commandline edit --replace ($new_words | str join " ")
       commandline set-cursor (position-after-word $new_words $word_index)
