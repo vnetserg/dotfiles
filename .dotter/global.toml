@@ -1,0 +1,16 @@
+[default.files]
+"bin/hxo" = "~/bin/hxo"
+"helix" = "~/.config/helix"
+"helix/languages.toml" = "~/.config/helix/languages.toml"
+"helix/themes/catppuccin_mocha_transparent.toml" = "~/code/contrib/helix/runtime/themes/catppuccin_mocha_transparent.toml"
+nushell = "~/.config/nushell"
+wezterm = "~/.config/wezterm"
+yazi = "~/.config/yazi"
+zellij = "~/.config/zellij"
+
+[macos.files]
+karabiner = "~/.config/karabiner"
+service_station = { target = "~/Library/Application Scripts/com.knurling.ServiceStation.Attendant", type = "template" }
+
+[settings]
+default_target_type = "symbolic"
