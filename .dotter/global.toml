@@ -2,7 +2,7 @@
 bin = "~/bin"
 "helix/config.toml" = "~/.config/helix/config.toml"
 "helix/languages.toml" = "~/.config/helix/languages.toml"
-"helix/themes/catppuccin_mocha_transparent.toml" = "~/code/contrib/helix/runtime/themes/catppuccin_mocha_transparent.toml"
+"helix/themes" = "~/code/contrib/helix/runtime/themes"
 nushell = "~/.config/nushell"
 wezterm = "~/.config/wezterm"
 yazi = "~/.config/yazi"

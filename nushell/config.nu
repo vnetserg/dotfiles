@@ -1,4 +1,4 @@
-source themes/catppuccin-mocha-custom.nu
+#source themes/catppuccin-mocha-custom.nu
 
 $env.config.show_banner = false
 $env.config.edit_mode = "vi"

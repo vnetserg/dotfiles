@@ -12,14 +12,14 @@ config.line_height = 1.0
 
 config.hide_tab_bar_if_only_one_tab = true
 
-config.color_scheme = "Catppuccin Mocha"
+config.color_scheme = "nord"
 
 config.text_blink_rate = 0
 
 config.background = {
   {
 		source = {
-			Color = '#1e1e2e',
+			Color = '#2e3440',
 		},
 		height = '100%',
 		width = '100%',
@@ -28,7 +28,7 @@ config.background = {
     source = {
       File = wezterm.home_dir .. '/.config/wezterm/background.jpg',
     },
-    opacity = 0.1,
+    opacity = 0.05,
     vertical_align = 'Middle',
     horizontal_align = 'Center',
   },
