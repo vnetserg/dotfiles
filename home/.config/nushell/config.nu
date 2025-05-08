@@ -1,3 +1,5 @@
+source themes/catppuccin-mocha-custom.nu
+
 $env.config.show_banner = false
 $env.config.edit_mode = "vi"
 $env.config.cursor_shape = {
