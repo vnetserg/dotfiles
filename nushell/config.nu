@@ -199,4 +199,4 @@ use quicknav *
 source zoxide.nu
 
 # Yandex-specific settings
-source ya/ya.nu
+source ya.nu
