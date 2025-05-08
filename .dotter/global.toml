@@ -1,6 +1,6 @@
 [default.files]
-"bin/hxo" = "~/bin/hxo"
-"helix" = "~/.config/helix"
+bin = "~/bin"
+"helix/config.toml" = "~/.config/helix/config.toml"
 "helix/languages.toml" = "~/.config/helix/languages.toml"
 "helix/themes/catppuccin_mocha_transparent.toml" = "~/code/contrib/helix/runtime/themes/catppuccin_mocha_transparent.toml"
 nushell = "~/.config/nushell"
