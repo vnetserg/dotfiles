@@ -1,0 +1,4 @@
+[opener]
+play = [
+  { run = 'open "$@"', orphan = true}
+]
