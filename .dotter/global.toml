@@ -4,13 +4,13 @@ bin = "~/bin"
 "helix/languages.toml" = "~/.config/helix/languages.toml"
 "helix/themes" = "~/code/contrib/helix/runtime/themes"
 nushell = "~/.config/nushell"
-wezterm = "~/.config/wezterm"
 yazi = "~/.config/yazi"
 zellij = "~/.config/zellij"
 
 [macos.files]
 karabiner = "~/.config/karabiner"
 service_station = { target = "~/Library/Application Scripts/com.knurling.ServiceStation.Attendant", type = "template" }
+wezterm = "~/.config/wezterm"
 
 [settings]
 default_target_type = "symbolic"
