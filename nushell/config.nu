@@ -1,4 +1,4 @@
-#source themes/catppuccin-mocha-custom.nu
+source themes/nord.nu
 
 $env.config.show_banner = false
 $env.config.edit_mode = "vi"
@@ -105,7 +105,7 @@ module quicknav {
   def pre-exec-hook [] {
     let entries = commandline
       | split row " "
-      | where { ($in | path type) == "file" }
+      | where { $in | path exists }
       | path expand
 
     let old_history = try {
