@@ -19,7 +19,7 @@ config.text_blink_rate = 0
 config.background = {
   {
 		source = {
-			Color = '#2e3440',
+			Color = '#282e39',
 		},
 		height = '100%',
 		width = '100%',
