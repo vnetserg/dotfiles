@@ -104,6 +104,23 @@ $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi green_bold)➜(ansi reset) "
 $env.PROMPT_COMMAND_RIGHT = ""
 
 $env.PROMPT_COMMAND = {
+  mut components = []
+
+  # Path
+  let is_root = (^whoami) == "root"
+  if $is_root {
+    $components = $components | append {
+      text: pwd
+      color: "red_bold"
+    }
+  } else {
+    $components = $components | append {
+      text: (pwd | str replace $nu.home-path '~')
+      color: "cyan_bold"
+    }
+  }
+
+  # Hostname
   let host_name = (sys host | get hostname | split row "." | get 0)
   let host_color = if $host_name == "se4min-dev" {
     "yellow_bold"
@@ -114,31 +131,18 @@ $env.PROMPT_COMMAND = {
   } else {
     "white_bold"
   }
-
-  let path_color = if (^whoami) == "root" {
-    "red_bold"
-  } else {
-    "cyan_bold"
+  $components = $components | append {
+    text: $host_name
+    color: $host_color
   }
 
-  mut components = [
-    {
-      text: (pwd | str replace $nu.home-path '~')
-      color: $path_color
-    }
-    {
-      text: $host_name
-      color: $host_color
-    }
-  ]
-
+  # Yandex-specific
   if "ENV_NAME" in $env {
     $components = $components | append {
       text: $"[($env.ENV_NAME)]"
       color: blue_bold
     }
   }
-
   if "K8S_CONTEXT" in $env {
     $components = $components | append {
       text: $"[($env.K8S_CONTEXT)]"
