@@ -110,7 +110,7 @@ $env.PROMPT_COMMAND = {
   let is_root = (^whoami) == "root"
   if $is_root {
     $components = $components | append {
-      text: pwd
+      text: (pwd)
       color: "red_bold"
     }
   } else {
