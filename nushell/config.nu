@@ -115,10 +115,16 @@ $env.PROMPT_COMMAND = {
     "white_bold"
   }
 
+  let path_color = if (^whoami) == "root" {
+    "red_bold"
+  } else {
+    "cyan_bold"
+  }
+
   mut components = [
     {
       text: (pwd | str replace $nu.home-path '~')
-      color: cyan_bold
+      color: $path_color
     }
     {
       text: $host_name
