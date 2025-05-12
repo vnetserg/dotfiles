@@ -95,6 +95,66 @@ $env.config.keybindings = [
 ]
 
 #
+# Prompt customization
+#
+
+$env.PROMPT_INDICATOR = $"(ansi green_bold)➜(ansi reset) "
+$env.PROMPT_INDICATOR_VI_INSERT = $"(ansi green_bold)➜(ansi reset) "
+$env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi green_bold)➜(ansi reset) "
+$env.PROMPT_COMMAND_RIGHT = ""
+
+$env.PROMPT_COMMAND = {
+  let host_name = (sys host | get hostname | split row "." | get 0)
+  let host_color = if $host_name == "se4min-dev" {
+    "yellow_bold"
+  } else if $host_name == "se4min-osx" {
+    "green_bold"
+  } else if $host_name == "ariel" {
+    "magenta_bold"
+  } else {
+    "white_bold"
+  }
+
+  mut components = [
+    {
+      text: (pwd | str replace $nu.home-path '~')
+      color: cyan_bold
+    }
+    {
+      text: $host_name
+      color: $host_color
+    }
+  ]
+
+  if "ENV_NAME" in $env {
+    $components = $components | append {
+      text: $"[($env.ENV_NAME)]"
+      color: blue_bold
+    }
+  }
+
+  if "K8S_CONTEXT" in $env {
+    $components = $components | append {
+      text: $"[($env.K8S_CONTEXT)]"
+      color: blue_bold
+    }
+  }
+
+  mut prompt = ""
+  mut len = -1
+  let term_width = term size | get columns
+  for comp in $components {
+    if $len + ($comp.text | str length) + 1 > $term_width and not ($prompt | is-empty) {
+      break
+    }
+    $prompt = $prompt + $" (ansi $comp.color)($comp.text)(ansi reset)" | str trim
+    $len += ($comp.text | str length) + 1
+  }
+
+  $prompt + "\n"
+}
+
+#
 # Quick navigation module
 #
 
