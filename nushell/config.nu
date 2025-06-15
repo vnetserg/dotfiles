@@ -34,6 +34,20 @@ def za [] {
   zellij attach main -c
 }
 
+def hollow [path] {
+  let atime = stat -c %X $path
+  let mtime = stat -c %Y $path
+  truncate -s 0 $path
+  touch -a -d $"@($atime)" -m -d $"@$($mtime)" $path
+}
+
+
+def claude [] {
+  $env.HTTP_PROXY = "http://localhost:3128"
+  ^claude
+}
+
+
 alias fzf-preset = fzf --scheme=history --read0 --layout=reverse --preview='echo {..}' --preview-window='bottom:3:wrap' --bind alt-up:preview-up,alt-down:preview-down --height=70% --preview='echo {} | nu --stdin -c "nu-highlight | str trim"'
 
 # Keybindings
