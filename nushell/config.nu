@@ -34,11 +34,13 @@ def za [] {
   zellij attach main -c
 }
 
-def hollow [path] {
-  let atime = stat -c %X $path
-  let mtime = stat -c %Y $path
-  truncate -s 0 $path
-  touch -a -d $"@($atime)" -m -d $"@$($mtime)" $path
+def hollow [...paths] {
+  for path in $paths {
+    let atime = stat -c %X $path
+    let mtime = stat -c %Y $path
+    truncate -s 0 $path
+    touch -a -d $"@($atime)" -m -d $"@$($mtime)" $path
+  }
 }
 
 def claude [] {
