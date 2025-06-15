@@ -39,7 +39,7 @@ def hollow [...paths] {
     let atime = stat -c %X $path
     let mtime = stat -c %Y $path
     truncate -s 0 $path
-    touch -a -d $"@($atime)" -m -d $"@$($mtime)" $path
+    ^touch -a -d $"@($atime)" -m -d $"@($mtime)" $path
   }
 }
 
